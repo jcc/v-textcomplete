@@ -5,6 +5,7 @@
   "author": "jcc <changejian@gmail.com>",
   "license": "MIT",
   "main": "dist/v-textcomplete.js",
+  "repository": "jcc/v-textcomplete",
   "keywords": [
     "textcomplete",
     "text-complete",
