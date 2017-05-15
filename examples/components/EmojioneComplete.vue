@@ -57,7 +57,7 @@
 
 <script>
 import Emojione from 'emojione'
-import { default as emojiStrategy } from '../../src/emoji_strategy'
+import { default as emojiStrategy } from '../emoji_strategy'
 import TextComplete from '../../src/TextComplete'
 
 export default {

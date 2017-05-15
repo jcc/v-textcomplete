@@ -42,6 +42,20 @@
               <td>customize</td>
               <td>20</td>
             </tr>
+            <tr>
+              <td>placeholder</td>
+              <td>Textarea placeholder.</td>
+              <td>String</td>
+              <td>customize</td>
+              <td>null</td>
+            </tr>
+            <tr>
+              <td>rows</td>
+              <td>Textarea rows.</td>
+              <td>Number</td>
+              <td>customize</td>
+              <td>2</td>
+            </tr>
           </tbody>
         </table>
       </div>

@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { default as githubEmoji } from '../../src/github_emoji'
+import { default as githubEmoji } from '../github_emoji'
 import TextComplete from '../../src/TextComplete'
 
 export default {

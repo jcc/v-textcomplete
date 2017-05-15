@@ -6,6 +6,8 @@
               @input="updateValue($event.target.value)"
               :style="{'line-height': lineHeight + 'px'}"
               :class="areaClass"
+              :placeholder="placeholder"
+              :rows="rows"
               name="textcomplete"
               @keydown="keyEvent"></textarea>
 
@@ -48,6 +50,14 @@ export default {
     selectedDefaultFirst: {
       type: Boolean,
       default: true
+    },
+    placeholder: {
+      type: String,
+      default: ''
+    },
+    rows: {
+      type: Number,
+      default: 2
     },
   },
   data() {
