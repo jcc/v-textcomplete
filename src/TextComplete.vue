@@ -1,5 +1,5 @@
 <template>
-  <div class="complete-box">
+  <div :class="['complete-box', boxClass]">
     <textarea :id="'v-textcomplete-' + id"
               ref="textarea"
               :value="value"
@@ -33,6 +33,7 @@ export default {
   props: {
     resize: String,
     value:  String,
+    boxClass: String,
     areaClass: String,
     placeholder: String,
     autosize: {
@@ -243,7 +244,6 @@ export default {
 <style lang="scss" scoped>
 .complete-box {
   position: relative;
-  margin: 1em 0 1em;
 }
 textarea {
   overflow: auto;
