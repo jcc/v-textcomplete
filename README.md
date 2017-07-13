@@ -87,6 +87,7 @@ export default {
 ## Thanks
 
 - [Textcomplete](https://github.com/yuku-t/textcomplete)
+- [Element UI](https://github.com/ElemeFE/element)
 
 ## License
 

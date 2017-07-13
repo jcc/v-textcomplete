@@ -56,6 +56,20 @@
               <td>customize</td>
               <td>2</td>
             </tr>
+            <tr>
+              <td>resize</td>
+              <td>Textarea resize property.</td>
+              <td>String</td>
+              <td>customize</td>
+              <td>null</td>
+            </tr>
+            <tr>
+              <td>autosize</td>
+              <td>Autosize the textarea's row.</td>
+              <td>Boolean | Object</td>
+              <td>customize</td>
+              <td>false</td>
+            </tr>
           </tbody>
         </table>
       </div>

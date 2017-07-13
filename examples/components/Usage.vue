@@ -7,6 +7,7 @@
         <emojione-complete></emojione-complete>
         <mention-name></mention-name>
         <custom-event></custom-event>
+        <autosize></autosize>
       </div>
     </div>
   </div>
@@ -17,6 +18,7 @@ import GithubEmojiComplete from './GithubEmoji'
 import EmojioneComplete from './EmojioneComplete'
 import MentionName from './MentionName'
 import CustomEvent from './CustomEvent'
+import Autosize from './Autosize'
 
 export default {
   components: {
@@ -24,6 +26,7 @@ export default {
     EmojioneComplete,
     MentionName,
     CustomEvent,
+    Autosize,
   }
 }
 </script>

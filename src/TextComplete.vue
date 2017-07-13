@@ -4,8 +4,8 @@
               ref="textarea"
               :value="value"
               @input="updateValue($event.target.value)"
-              :style="{'line-height': lineHeight + 'px'}"
-              :class="areaClass"
+              :style="textareaStyle"
+              :class="['v-textcomplete__inner', areaClass]"
               :placeholder="placeholder"
               :rows="rows"
               name="textcomplete"
@@ -23,19 +23,20 @@
 </template>
 
 <script>
+import calcTextareaHeight from './calcTextareaHeight'
 import { default as getCaretCoordinates } from 'textarea-caret'
 import { default as keyEvent } from './keyEvent'
 
 export default {
   mixins: [keyEvent],
   props: {
-    value: {
-      type: String,
-      default: ''
-    },
-    areaClass: {
-      type: String,
-      default: ''
+    resize: String,
+    value:  String,
+    areaClass: String,
+    placeholder: String,
+    autosize: {
+      type: [Boolean, Object],
+      default: false
     },
     lineHeight: {
       type: Number,
@@ -50,10 +51,6 @@ export default {
     selectedDefaultFirst: {
       type: Boolean,
       default: true
-    },
-    placeholder: {
-      type: String,
-      default: ''
     },
     rows: {
       type: Number,
@@ -72,14 +69,39 @@ export default {
       actived: { value: '', index: 0 },
       template: () => {},
       replace: () => {},
+      textareaCalcStyle: {},
+    }
+  },
+  mounted() {
+    this.resizeTextarea()
+  },
+  computed: {
+    textareaStyle() {
+      return Object.assign({
+        'line-height': this.lineHeight + 'px',
+        resize: this.resize,
+      }, this.textareaCalcStyle)
     }
   },
   watch: {
     value() {
       this.change()
+      this.resizeTextarea()
     }
   },
   methods: {
+    setCurrentValue(value) {
+      this.$nextTick(_ => {
+      })
+    },
+    resizeTextarea() {
+      var { autosize } = this
+      if (!autosize) return
+      const minRows = autosize.minRows
+      const maxRows = autosize.maxRows
+
+      this.textareaCalcStyle = calcTextareaHeight(this.$refs.textarea, minRows, maxRows)
+    },
     updateValue: function (value) {
       this.$refs.textarea.value = value
 
@@ -102,9 +124,7 @@ export default {
           let coordinates = getCaretCoordinates(textarea, cursorPosition)
           let top = coordinates.top + that.lineHeight - scroll.top
           let left = coordinates.left + textarea.offsetLeft
-
-          autocomplete.style.top = top + 'px'
-          autocomplete.style.left = left + 'px'
+          let clientHeight = document.documentElement.offsetHeight
 
           that.template = item.template
           that.match = item.match
@@ -115,6 +135,14 @@ export default {
           } else {
             item.search(i, that.getList)
           }
+
+          if ((clientHeight - textarea.getBoundingClientRect().top) < (that.lineHeight * this.list.length)) {
+            autocomplete.style.top = - (that.lineHeight * this.list.length) - ( 2 * top ) + 'px'
+          } else {
+            autocomplete.style.top = top + 'px'
+          }
+
+          autocomplete.style.left = left + 'px'
 
           that.matched.push(match)
         } else {
@@ -142,11 +170,11 @@ export default {
       let offset = { top: rect.top + defaultView.pageYOffset, left: rect.left + defaultView.pageXOffset }
 
       if (documentElement) {
-        offset.top -= documentElement.clientTop;
-        offset.left -= documentElement.clientLeft;
+        offset.top -= documentElement.clientTop
+        offset.left -= documentElement.clientLeft
       }
 
-      return offset;
+      return offset
     },
     getList(list) {
       this.list = list
@@ -180,32 +208,32 @@ export default {
       this.actived.index = 0
     },
     getCursorPosition(element) {
-      var CaretPos = 0;
+      var CaretPos = 0
       if (document.selection) {
-        element.focus();
+        element.focus()
 
-        let selection = document.selection.createRange();
+        let selection = document.selection.createRange()
 
-        selection.moveStart ('character', -element.value.length);
-        CaretPos = selection.text.length;
+        selection.moveStart ('character', -element.value.length)
+        CaretPos = selection.text.length
       } else if (element.selectionStart || element.selectionStart == '0') {
-        CaretPos = element.selectionStart;
+        CaretPos = element.selectionStart
       }
-      return (CaretPos);
+      return (CaretPos)
     },
     getElementScroll(element) {
-      return { top: element.scrollTop, left: element.scrollLeft };
+      return { top: element.scrollTop, left: element.scrollLeft }
     },
     setCaretPosition(element, position){
       if(element.setSelectionRange) {
-        element.focus();
+        element.focus()
         setTimeout(() => element.setSelectionRange(position, position), 1)
       } else if (element.createTextRange) {
-        var range = element.createTextRange();
-        range.collapse(true);
-        range.moveEnd('character', position);
-        range.moveStart('character', position);
-        range.select();
+        var range = element.createTextRange()
+        range.collapse(true)
+        range.moveEnd('character', position)
+        range.moveStart('character', position)
+        range.select()
       }
     },
   }
@@ -219,6 +247,42 @@ export default {
 }
 textarea {
   overflow: auto;
+}
+.v-textcomplete__inner {
+  color: #1f2d3d;
+  border: 1px solid #bfcbd9;
+  padding: 5px 7px;
+  font-size: 14px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 14px;
+  color: #1f2d3d;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #bfcbd9;
+  border-radius: 4px;
+  transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+
+  &:hover{
+    border-color:#8391a5;
+  }
+  &:focus{
+    outline:0;
+    border-color:#20a0ff;
+  }
+  &::-webkit-input-placeholder{
+    color:#97a8be;
+  }
+  &::-moz-placeholder{
+    color:#97a8be
+  }
+  &:-ms-input-placeholder{
+    color:#97a8be
+  }
+  &::placeholder{
+    color:#97a8be
+  }
 }
 .autocomplete {
   background-color: #fff;
@@ -236,7 +300,6 @@ textarea {
     padding-left: 5px;
     padding-right: 5px;
     border-bottom: 1px solid #f3f5f7;
-    text-align: center;
     cursor: pointer;
 
     &:hover {
