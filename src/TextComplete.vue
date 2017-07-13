@@ -9,6 +9,7 @@
               :placeholder="placeholder"
               :rows="rows"
               name="textcomplete"
+              @focus="handleFocus"
               @keydown="keyEvent"></textarea>
 
     <div class="autocomplete transition" :id="'autocomplete-' + id" v-show="showList">
@@ -90,9 +91,8 @@ export default {
     }
   },
   methods: {
-    setCurrentValue(value) {
-      this.$nextTick(_ => {
-      })
+    handleFocus(event) {
+      this.$emit('focus', event)
     },
     resizeTextarea() {
       var { autosize } = this
