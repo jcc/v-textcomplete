@@ -134,7 +134,18 @@ export default {
           if (item.list != undefined && item.list.length > 0 && match[2] == '') {
             that.list = item.list
           } else {
-            item.search(i, that.getList)
+            if (item.remote) {
+              that.list = []
+              item.remote(i, (list) => {
+                if (list.length !== 0) {
+                  that.list = list
+                  item.search(i, that.getList)
+                  that.showList = true
+                }
+              })
+            } else {
+              item.search(i, that.getList)
+            }
           }
 
           if ((clientHeight - textarea.getBoundingClientRect().top) < (that.lineHeight * this.list.length)) {
