@@ -1,6 +1,6 @@
 {
   "name": "v-textcomplete",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A simple, flexible and easy-to-use text completion component.",
   "author": "jcc <changejian@gmail.com>",
   "license": "MIT",
