@@ -69,7 +69,7 @@ export default {
   methods: {
     showCode() {
       this.show = !this.show
-    }
+    },
   }
 }
 </script>

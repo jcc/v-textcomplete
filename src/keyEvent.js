@@ -26,6 +26,8 @@ export default {
             this.emitMoveEvent(DOWN)
             break
         }
+
+        this.$emit('key-down', e)
       }
     },
     emitEnterEvent() {
