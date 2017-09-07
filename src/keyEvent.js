@@ -30,6 +30,9 @@ export default {
         this.$emit('key-down', e)
       }
     },
+    keyUp(e) {
+      this.$emit('key-up', e)
+    },
     emitEnterEvent() {
       this.selectList(this.actived.value)
       this.showList = false

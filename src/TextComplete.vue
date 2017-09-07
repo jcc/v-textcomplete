@@ -10,7 +10,8 @@
               :rows="rows"
               name="textcomplete"
               @focus="handleFocus"
-              @keydown="keyEvent"></textarea>
+              @keydown="keyEvent"
+              @keyup="keyUp"></textarea>
 
     <div class="autocomplete transition" :id="'autocomplete-' + id" v-show="showList">
       <ul>
