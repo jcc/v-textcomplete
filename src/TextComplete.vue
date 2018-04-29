@@ -8,7 +8,7 @@
               :class="['v-textcomplete__inner', areaClass]"
               :placeholder="placeholder"
               :rows="rows"
-              name="textcomplete"
+              :name="name"
               @focus="handleFocus"
               @keydown="keyEvent"
               @keyup="keyUp"></textarea>
@@ -37,6 +37,10 @@ export default {
     boxClass: String,
     areaClass: String,
     placeholder: String,
+    name: {
+      type: String,
+      default : 'textcomplete'
+    },
     autosize: {
       type: [Boolean, Object],
       default: false
