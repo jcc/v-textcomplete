@@ -10,6 +10,7 @@
               :rows="rows"
               :name="name"
               @focus="handleFocus"
+              @blur="handleBlur"
               @keydown="keyEvent"
               @keyup="keyUp"></textarea>
 
@@ -99,6 +100,9 @@ export default {
   methods: {
     handleFocus(event) {
       this.$emit('focus', event)
+    },
+    handleBlur(event) {
+      this.$emit('blur', event)
     },
     resizeTextarea() {
       var { autosize } = this
